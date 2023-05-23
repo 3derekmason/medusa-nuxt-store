@@ -1,4 +1,9 @@
 export default {
+  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
+  ssr: false,
+  server: {
+    port: 3333, // default: 3000
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'nuxt-storefront',
@@ -38,7 +43,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.MEDUSA_BACKEND_URL || 'http://localhost:9000/store',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
