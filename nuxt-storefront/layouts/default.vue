@@ -1,11 +1,11 @@
 <template>
   <div>
     <AppNavbar />
-
     <main>
-      <Nuxt />
+      <div class="container">
+        <slot />
+      </div>
     </main>
-
     <AppFooter />
   </div>
 </template>
