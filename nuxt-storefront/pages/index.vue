@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-if="products.length">
       <div>
         <p>Featured</p>
         <nuxt-link to="/products">
@@ -19,7 +19,33 @@
           </svg>
         </nuxt-link>
       </div>
-      <div>Product Card Map</div>
+      <div>
+        <ProductCard
+          v-for="product in products"
+          :key="product.id"
+          :item="product"
+        />
+      </div>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'IndexPage',
+  data: () => {
+    return {
+      products: [],
+    }
+  },
+  async fetch() {
+    try {
+      const { products } = await this.$axios.$get('/products')
+      this.products = products.splice(0, 4)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('The server is not responding')
+    }
+  },
+}
+</script>
