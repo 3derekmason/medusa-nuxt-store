@@ -27,7 +27,7 @@ const { products } = await client.products.list();
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1em;
+  gap: 0.5em;
   border-top: 2px solid var(--primary-main);
 }
 </style>
