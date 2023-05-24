@@ -1,5 +1,6 @@
 <template>
   <div class="homePage">
+    <HeroSection />
     <div>
       <h4>Featured Products</h4>
     </div>
