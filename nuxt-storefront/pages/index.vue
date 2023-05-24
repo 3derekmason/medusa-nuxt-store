@@ -15,6 +15,13 @@
 <script setup lang="ts">
 const client = useMedusaClient();
 const { products } = await client.products.list();
+
+onMounted(() => {
+  client.carts.create().then(({ cart }) => {
+    console.log(cart);
+    localStorage.setItem("cart_id", cart.id);
+  });
+});
 </script>
 
 <style>
