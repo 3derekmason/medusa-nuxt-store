@@ -1,13 +1,11 @@
 <template>
-  <div>
+  <div class="productCard">
     <NuxtLink :to="`/products/${item.id}`">
       <div>
-        <div>
-          <div>
-            <img alt="" :src="item.thumbnail" width="300" height="300" />
-          </div>
+        <div class="thumbnail">
+          <img alt="" :src="item.thumbnail" width="300" height="300" />
         </div>
-        <div>
+        <div class="productLabel">
           <h3>
             {{ item.title }}
           </h3>
@@ -52,3 +50,43 @@ const getLowestPrice = (item: any) => {
   return lowestPrice || { amount: 10, currency_code: "usd" };
 };
 </script>
+
+<style scoped>
+
+.productCard {
+  border: 0.5px solid transparent;
+  transition: 0.2s ease-in-out;
+}
+.productCard:hover {
+  border: 0.5px dashed var(--primary-main);
+  transition: 0.2s ease-in-out;
+}
+.productCard h3, .productCard p {
+  color: var(--primary-main);
+}
+.productCard a:hover {
+  text-decoration: none;
+}
+
+.thumbnail {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.productCard img {
+  transition: 0.2s ease-in-out;
+}
+.productCard:hover img {
+  scale: 1.15;
+  rotate: -15deg;
+  transition: 0.2s ease-in-out;
+}
+
+.productLabel {
+  padding: 0px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>
