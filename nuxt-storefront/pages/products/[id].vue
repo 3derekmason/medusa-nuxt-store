@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="prodActions">
       <h1>
         {{ product?.title }}
       </h1>
@@ -40,15 +40,15 @@
           <p>
             {{ option.title }}
           </p>
-          <div>
+          <div class="optionPicker">
             <button v-for="value in option.values" :key="value.id">
               {{ value.value }}
             </button>
           </div>
         </div>
       </div>
-      <div>
-        <div>
+      <div class="cartActions">
+        <span>
           <button
             @click="
               if (quantity > 0) {
@@ -58,12 +58,16 @@
           >
             –
           </button>
-          <span>{{ JSON.stringify(quantity) }}</span>
+          <caption>
+            {{
+              JSON.stringify(quantity)
+            }}
+          </caption>
           <button @click="quantity = quantity + 1">+</button>
-        </div>
-        <button>Add to cart</button>
+        </span>
+        <button class="toCart">Add to cart</button>
       </div>
-      <div>
+      <div class="details">
         <div>
           <h3>
             <button type="button" @click="showDetails = !showDetails">
@@ -162,5 +166,88 @@ const getOptions = () => {
 .shownImage:hover img {
   scale: 1.5;
   transition: 0.2s ease-in-out;
+}
+
+.prodActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.optionPicker {
+  margin-top: 0.5em;
+  display: flex;
+  gap: 0.25em;
+}
+
+.optionPicker button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  color: #fefefe;
+  background: var(--primary-main);
+  cursor: pointer;
+}
+
+.cartActions {
+  display: flex;
+  gap: 0.5em;
+  height: 40px;
+}
+
+.cartActions span {
+  height: 100%;
+  width: 100px;
+  padding: 0.5em;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  color: #fefefe;
+  background: var(--primary-main);
+  font-size: 1.25em;
+}
+
+.cartActions span button {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  color: #fefefe;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.toCart {
+  border: none;
+  border-radius: 4px;
+  background: var(--primary-main);
+  color: #fefefe;
+  width: 100px;
+  cursor: pointer;
+}
+
+.details {
+  margin-top: 1.5em;
+  border-top: 1px solid var(--primary-main);
+  border-bottom: 1px solid var(--primary-main);
+  padding: 0.5em;
+}
+
+.details button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.details ul {
+  list-style: none;
+  margin: 1em;
 }
 </style>
