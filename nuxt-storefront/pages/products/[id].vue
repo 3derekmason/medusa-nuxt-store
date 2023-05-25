@@ -1,5 +1,6 @@
 <template>
   <div class="productDetails">
+    {{ variantId }}
     <div class="imageContainer">
       <div class="prodImages">
         <img
@@ -41,7 +42,11 @@
             {{ option.title }}
           </p>
           <div class="optionPicker">
-            <button v-for="value in option.values" :key="value.id">
+            <button
+              v-for="value in option.values"
+              :key="value.id"
+              @click="getVariant(value.value)"
+            >
               {{ value.value }}
             </button>
           </div>
@@ -65,7 +70,7 @@
           </caption>
           <button @click="quantity = quantity + 1">+</button>
         </span>
-        <button class="toCart">Add to cart</button>
+        <button class="toCart" @click="addToCart()">Add to cart</button>
       </div>
       <div class="details">
         <div>
@@ -106,9 +111,11 @@ const route = useRoute();
 const productId = route.params.id;
 const client = useMedusaClient();
 const { product } = await client.products.retrieve(productId);
+console.log(product);
 let showDetails = ref(false);
 let imageToShow = ref(product?.images[0].id);
 let quantity = ref(1);
+let variantId = ref();
 
 const getOptions = () => {
   if (product?.options) {
@@ -122,6 +129,28 @@ const getOptions = () => {
 
       return option;
     });
+  }
+};
+
+const getVariant = (value: string) => {
+  product.variants.forEach((variant: any) => {
+    if (variant.title === value) {
+      variantId = variant.id;
+    }
+  });
+};
+
+const addToCart = () => {
+  const cartId = localStorage.getItem("cart_id");
+  if (cartId && variantId) {
+    client.carts.lineItems
+      .create(cartId, {
+        variant_id: variantId,
+        quantity: Number(quantity) || 1,
+      })
+      .then(({ cart }) => {
+        console.log(cart);
+      });
   }
 };
 </script>
