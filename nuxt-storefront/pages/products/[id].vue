@@ -1,6 +1,5 @@
 <template>
   <div class="productDetails">
-    {{ variantId }}
     <div class="imageContainer">
       <div class="prodImages">
         <img
@@ -43,9 +42,10 @@
           </p>
           <div class="optionPicker">
             <button
+              :disabled="selected === value.value"
               v-for="value in option.values"
               :key="value.id"
-              @click="getVariant(value.value)"
+              @click="setVariant(value.value)"
             >
               {{ value.value }}
             </button>
@@ -115,6 +115,7 @@ console.log(product);
 let showDetails = ref(false);
 let imageToShow = ref(product?.images[0].id);
 let quantity = ref(1);
+let selected = ref();
 let variantId = ref();
 
 const getOptions = () => {
@@ -132,7 +133,8 @@ const getOptions = () => {
   }
 };
 
-const getVariant = (value: string) => {
+const setVariant = (value: string) => {
+  selected.value = value;
   product.variants.forEach((variant: any) => {
     if (variant.title === value) {
       variantId = variant.id;
@@ -217,6 +219,13 @@ const addToCart = () => {
   color: #fefefe;
   background: var(--primary-main);
   cursor: pointer;
+  box-shadow: 0 2px 0 #212121;
+}
+
+.optionPicker button:disabled {
+  opacity: 0.8;
+  box-shadow: none;
+  transform: translateY(2px);
 }
 
 .cartActions {
@@ -250,6 +259,11 @@ const addToCart = () => {
   cursor: pointer;
 }
 
+.cartActions button:active,
+.cartActions button:hover {
+  color: var(--secondary-main);
+}
+
 .toCart {
   border: none;
   border-radius: 4px;
@@ -257,6 +271,17 @@ const addToCart = () => {
   color: #fefefe;
   width: 100px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.cartActions .toCart:hover {
+  color: #212121;
+  background: var(--secondary-main);
+  transition: 0.2s;
+}
+
+.toCart:active {
+  opacity: 0.6;
 }
 
 .details {
