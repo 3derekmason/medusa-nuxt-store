@@ -5,11 +5,14 @@
 </template>
 
 <script setup lang="ts">
+import { useMainStore } from "./store/main";
+import { storeToRefs } from "pinia";
 const client = useMedusaClient();
+const main = useMainStore();
 onMounted(() => {
   client.carts.create().then(({ cart }) => {
-    console.log(cart);
     localStorage.setItem("cart_id", cart.id);
+    main.setCart(cart);
   });
 });
 </script>

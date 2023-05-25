@@ -107,11 +107,12 @@
 </template>
 
 <script setup lang="ts">
+import { useMainStore } from "../../store/main";
 const route = useRoute();
 const productId = route.params.id;
 const client = useMedusaClient();
+const main = useMainStore();
 const { product } = await client.products.retrieve(productId);
-console.log(product);
 let showDetails = ref(false);
 let imageToShow = ref(product?.images[0].id);
 let quantity = ref(1);
@@ -143,7 +144,7 @@ const setVariant = (value: string) => {
 };
 
 const addToCart = () => {
-  const cartId = localStorage.getItem("cart_id");
+  const cartId = main.cart.id;
   if (cartId && variantId) {
     client.carts.lineItems
       .create(cartId, {
@@ -151,7 +152,7 @@ const addToCart = () => {
         quantity: Number(quantity) || 1,
       })
       .then(({ cart }) => {
-        console.log(cart);
+        main.setCart(cart);
       });
   }
 };
