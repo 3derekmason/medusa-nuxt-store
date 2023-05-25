@@ -11,11 +11,18 @@
       </div>
       <span>
         <NuxtLink to="/account">Account</NuxtLink>
-        <NuxtLink to="/cart">Cart</NuxtLink>
+        <NuxtLink to="/cart" class="cartNav"
+          >Cart <span>{{ main.cart?.items?.length || 0 }}</span></NuxtLink
+        >
       </span>
     </nav>
   </header>
 </template>
+
+<script setup lang="ts">
+import { useMainStore } from "../../store/main";
+const main = useMainStore();
+</script>
 
 <style scoped>
 .navbar {
@@ -51,10 +58,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5em;
+  gap: 1em;
 }
 
 .navbar a {
   color: #fefefe;
+}
+
+.cartNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.cartNav span {
+  width: 24px;
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+  border: 1px solid #fefefe;
+  background: #ffffff10;
+  font-size: 12px;
+}
+
+.navbar a:hover > span {
+  text-decoration: none;
 }
 </style>
