@@ -4,6 +4,16 @@
   </NuxtLayout>
 </template>
 
+<script setup lang="ts">
+const client = useMedusaClient();
+onMounted(() => {
+  client.carts.create().then(({ cart }) => {
+    console.log(cart);
+    localStorage.setItem("cart_id", cart.id);
+  });
+});
+</script>
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap");
 :root {
