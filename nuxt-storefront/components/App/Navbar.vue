@@ -2,8 +2,10 @@
   <header class="navbar">
     <nav>
       <span>
-        <NuxtLink to="/"> Home </NuxtLink>
-        <NuxtLink to="/products"> Products </NuxtLink>
+        <NuxtLink v-if="$route.path !== '/'" to="/"> Home </NuxtLink>
+        <NuxtLink v-if="$route.path !== '/products'" to="/products">
+          Products
+        </NuxtLink>
       </span>
 
       <div class="logo">
@@ -11,7 +13,7 @@
       </div>
       <span>
         <NuxtLink to="/account">Account</NuxtLink>
-        <NuxtLink to="/cart" class="cartNav"
+        <NuxtLink v-if="$route.path !== '/cart'" to="/cart" class="cartNav"
           >Cart <span>{{ main.cart?.items?.length || 0 }}</span></NuxtLink
         >
       </span>
