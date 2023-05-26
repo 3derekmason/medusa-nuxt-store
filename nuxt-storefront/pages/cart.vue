@@ -4,6 +4,7 @@
   </h3>
   <ul>
     <li v-for="item in main.cart?.items">
+      <CartRemoveItem :lineId="item.id" />
       <img alt="" :src="item.thumbnail" width="120" />
       <p>{{ item.title }}</p>
       <p>{{ item.description }}</p>
