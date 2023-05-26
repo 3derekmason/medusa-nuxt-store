@@ -11,12 +11,23 @@
       <div v-if="currentStep === 1">
         <CheckoutShippingAddress />
       </div>
-      <div v-if="currentStep === 2">Shipping Options</div>
-      <div v-if="currentStep === 3">Review and place order</div>
+      <div v-if="currentStep === 2">
+        <CheckoutShippingOptions />
+      </div>
+      <div v-if="currentStep === 3">
+        <CheckoutReviewOrder />
+      </div>
     </div>
     <span class="stepNav">
       <button :disabled="currentStep === 1" @click="currentStep--">Prev</button>
-      <button :disabled="currentStep === 3" @click="currentStep++">Next</button>
+      <button
+        v-if="currentStep < 3"
+        :disabled="currentStep === 3"
+        @click="currentStep++"
+      >
+        Next
+      </button>
+      <button v-else class="placeOrder">Place Order</button>
     </span>
   </div>
 </template>

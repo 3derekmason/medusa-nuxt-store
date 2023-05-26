@@ -1,6 +1,6 @@
 <template>
   <form action="" class="shippingAddress">
-    <p>Shipping Address:</p>
+    <h2>Shipping Address:</h2>
     <div class="row">
       <label for="company">Company Name:</label
       ><input type="text" name="company" />
