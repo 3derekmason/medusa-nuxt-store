@@ -1,5 +1,5 @@
 <template>
-  <button @click="removeItem()" class="remove">Remove from cart</button>
+  <button @click="removeItem()" class="remove">X</button>
 </template>
 
 <script setup lang="ts">
@@ -20,11 +20,11 @@ const removeItem = () => {
 .remove {
   border: none;
   background: none;
-  color: var(--secondary-main);
+  color: #d50000;
   font-size: 14px;
   cursor: pointer;
 }
 .remove:hover {
-  opacity: 0.8;
+  color: var(--secondary-main);
 }
 </style>
