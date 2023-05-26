@@ -18,17 +18,6 @@
           <p>{{ item.description }}</p>
           <h5>{{ item.unit_price / 100 }}</h5>
         </span>
-        <span class="pickup">
-          <h6>Select option:</h6>
-          <div class="pickupOption">
-            <input type="radio" name="store" />
-            <label for="store">Pickup in store</label>
-          </div>
-          <div class="pickupOption">
-            <input type="radio" name="deliver" />
-            <label for="deliver">Delivery</label>
-          </div>
-        </span>
       </li>
     </ul>
     <div class="subtotal">
@@ -59,7 +48,7 @@
     </div>
     <div class="total">
       <p>Total: {{ main.cart.total / 100 || 0 }}</p>
-      <button>Proceed to checkout</button>
+      <NuxtLink to="/checkout">Proceed to checkout</NuxtLink>
     </div>
   </div>
 </template>
@@ -82,7 +71,7 @@ const main = useMainStore();
 .cartItems li {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: 0.5em;
   margin: 0.5em 0;
   padding: 0.5em;
   border: 1px solid var(--primary-main);
@@ -92,15 +81,6 @@ const main = useMainStore();
 .aboutItem {
   display: flex;
   flex-direction: column;
-}
-
-.pickup {
-  padding: 0.25em;
-}
-
-.pickupOption {
-  display: flex;
-  gap: 0.5em;
 }
 
 .subtotal,
@@ -130,13 +110,26 @@ const main = useMainStore();
   gap: 1em;
 }
 
-.total button {
-  padding: 0.25em 0.5em;
-  height: 32px;
+.total a {
+  display: grid;
+  place-content: center;
+  padding: 0.5em 0.5em;
+  height: 40px;
   border: none;
   border-radius: 0.5em;
   background: var(--primary-main);
   color: #fefefe;
+  font-size: 14px;
   text-transform: uppercase;
+  box-shadow: 0 4px 0 #212121;
+}
+
+.total a:hover {
+  text-decoration: none;
+}
+
+.total a:active {
+  transform: translateY(4px);
+  box-shadow: none;
 }
 </style>
