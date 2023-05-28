@@ -6,7 +6,6 @@
 
 <script setup lang="ts">
 import { useMainStore } from "./store/main";
-import { storeToRefs } from "pinia";
 const client = useMedusaClient();
 const main = useMainStore();
 onMounted(() => {
@@ -14,6 +13,14 @@ onMounted(() => {
     localStorage.setItem("cart_id", cart.id);
     main.setCart(cart);
   });
+  client.auth
+    .authenticate({
+      email: "derek@powerfulweb.com",
+      password: "Medusa123",
+    })
+    .then(({ customer }) => {
+      main.setCustomer(customer.id);
+    });
 });
 </script>
 

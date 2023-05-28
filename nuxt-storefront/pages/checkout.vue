@@ -27,7 +27,7 @@
       >
         Next
       </button>
-      <button v-else class="placeOrder">Place Order</button>
+      <button v-else class="placeOrder" @click="placeOrder">Place Order</button>
     </span>
   </div>
 </template>
@@ -37,6 +37,11 @@ import { useMainStore } from "~/store/main";
 const client = useMedusaClient();
 const main = useMainStore();
 const currentStep = ref(1);
+const placeOrder = () => {
+  client.carts.complete(main.cart.id).then(({ type, data }) => {
+    console.log(type, data);
+  });
+};
 </script>
 
 <style>

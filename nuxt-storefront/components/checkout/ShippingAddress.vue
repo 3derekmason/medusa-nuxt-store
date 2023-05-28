@@ -3,34 +3,83 @@
     <h2>Shipping Address:</h2>
     <div class="row">
       <label for="company">Company Name:</label
-      ><input type="text" name="company" />
+      ><input type="text" name="company" v-model="userAddress.company" />
     </div>
     <div class="row">
       <label for="firstName">First Name:</label
-      ><input type="text" name="firstName" />
+      ><input type="text" name="firstName" v-model="userAddress.first_name" />
     </div>
     <div class="row">
       <label for="lastName">Last Name:</label
-      ><input type="text" name="lastName" />
+      ><input type="text" name="lastName" v-model="userAddress.last_name" />
     </div>
     <div class="row">
       <label for="address1">Address 1:</label
-      ><input type="text" name="address1" />
+      ><input type="text" name="address1" v-model="userAddress.address_1" />
     </div>
     <div class="row">
       <label for="address2">Address 2:</label
-      ><input type="text" name="address2" />
+      ><input type="text" name="address2" v-model="userAddress.address_2" />
     </div>
     <div class="row">
-      <label for="city">City:</label><input type="text" name="city" />
+      <label for="city">City:</label
+      ><input type="text" name="city" v-model="userAddress.city" />
     </div>
     <div class="row">
       <label for="province">Province:</label
-      ><input type="text" name="province" />
+      ><input type="text" name="province" v-model="userAddress.province" />
     </div>
     <div class="row">
       <label for="postalCode">Postal Code:</label
-      ><input type="text" name="postalCode" />
+      ><input type="text" name="postalCode" v-model="userAddress.postal_code" />
     </div>
+    <div v-if="formComplete">Done</div>
+    <div v-else>Not done</div>
   </form>
 </template>
+
+<script setup lang="ts">
+import { useMainStore } from "~/store/main";
+
+const client = useMedusaClient();
+const main = useMainStore();
+const userAddress = ref({
+  company: "",
+  first_name: "",
+  last_name: "",
+  address_1: "",
+  address_2: "",
+  city: "",
+  country_code: "DK",
+  province: "",
+  postal_code: "",
+});
+
+const formComplete = ref(false);
+
+watchEffect(() => {
+  if (
+    userAddress.value.first_name &&
+    userAddress.value.last_name &&
+    userAddress.value.address_1 &&
+    userAddress.value.city &&
+    userAddress.value.province &&
+    userAddress.value.postal_code
+  ) {
+    formComplete.value = true;
+  }
+});
+
+// watchEffect(() => {
+//   if (formComplete.value) {
+//     client.carts
+//       .update(main.cart.id, {
+//         shipping_address: userAddress.value,
+//       })
+//       .then(({ cart }) => {
+//         console.log(cart.shipping_address);
+//       });
+//   }
+//   console.log(main.cart.shipping_address);
+// });
+</script>
