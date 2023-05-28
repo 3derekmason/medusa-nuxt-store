@@ -50,9 +50,10 @@ const userAddress = ref({
   address_1: "",
   address_2: "",
   city: "",
-  country_code: "DK",
+  country_code: "dk",
   province: "",
   postal_code: "",
+  phone: "",
 });
 
 const formComplete = ref(false);
@@ -70,16 +71,16 @@ watchEffect(() => {
   }
 });
 
-// watchEffect(() => {
-//   if (formComplete.value) {
-//     client.carts
-//       .update(main.cart.id, {
-//         shipping_address: userAddress.value,
-//       })
-//       .then(({ cart }) => {
-//         console.log(cart.shipping_address);
-//       });
-//   }
-//   console.log(main.cart.shipping_address);
-// });
+watchEffect(() => {
+  if (formComplete.value) {
+    client.carts
+      .update(main.cart.id, {
+        shipping_address: userAddress.value,
+      })
+      .then(({ cart }) => {
+        console.log(cart.shipping_address);
+      });
+  }
+  console.log(main.cart.shipping_address);
+});
 </script>

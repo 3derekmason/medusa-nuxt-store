@@ -1,21 +1,28 @@
 <template>
   <div class="shippingOptions">
     <h2>Shipping Options</h2>
-    <div>
-      <div class="cartItem" v-for="item in main.cart.items">
-        <div class="inStore" v-if="item.metadata.in_store_pickup">
-          <h4>To pickup in store:</h4>
-          <img :src="item.thumbnail" alt="" width="80" />
-          <p>{{ item.title }}</p>
+    <div class="cartItems">
+      <h4>Pickup in store: (Denver, CO)</h4>
+      <div class="inStore">
+        <div class="cartItem" v-for="item in main.cart.items">
+          <div v-if="item.metadata.in_store_pickup">
+            <img :src="item.thumbnail" alt="" width="80" />
+            <p>{{ item.title }}</p>
+          </div>
         </div>
-        <div class="toShip" v-else>
-          <h4>To be shipped:</h4>
-          <img :src="item.thumbnail" alt="" width="80" />
-          <p>{{ item.title }}</p>
+      </div>
+      <h4>To be shipped:</h4>
+      <div class="toShip">
+        <div class="cartItem" v-for="item in main.cart.items">
+          <div v-if="!item.metadata.in_store_pickup">
+            <img :src="item.thumbnail" alt="" width="80" />
+            <p>{{ item.title }}</p>
+          </div>
         </div>
       </div>
     </div>
     <div class="optionList">
+      <p><em>How would you like to ship items?</em></p>
       <span v-for="option in availableOptions">
         <input
           type="checkbox"
@@ -23,7 +30,7 @@
           @change="addOption(option.id)"
         />
         <label :for="option.name">{{ option.name.split(" ")[1] }}:</label>
-        <p>{{ option.price_incl_tax / 100 }}</p>
+        <p>+{{ option.price_incl_tax / 100 }}</p>
       </span>
     </div>
   </div>
@@ -54,6 +61,19 @@ const addOption = async (optionId: string) => {
   padding: 1em;
 }
 
+.cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.cartItems h4 {
+  background: var(--primary-main);
+  color: #efefef;
+  padding: 0 0.5em;
+}
+
 .cartItem {
   display: flex;
   align-items: center;
@@ -61,9 +81,19 @@ const addOption = async (optionId: string) => {
   padding: 0.25em;
 }
 
+.optionList {
+  padding: 1em;
+}
+
 .optionList span {
   display: flex;
   align-items: center;
   gap: 0.5em;
+}
+
+.inStore,
+.toShip {
+  display: flex;
+  align-items: center;
 }
 </style>
