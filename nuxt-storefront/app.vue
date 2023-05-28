@@ -13,14 +13,14 @@ onMounted(() => {
     localStorage.setItem("cart_id", cart.id);
     main.setCart(cart);
   });
-  client.auth
-    .authenticate({
-      email: "derek@powerfulweb.com",
-      password: "Medusa123",
-    })
-    .then(({ customer }) => {
-      main.setCustomer(customer.id);
-    });
+  // client.auth
+  //   .authenticate({
+  //     email: "derek@powerfulweb.com",
+  //     password: "Medusa123",
+  //   })
+  //   .then(({ customer }) => {
+  //     main.setCustomer(customer.id);
+  //   });
 });
 </script>
 

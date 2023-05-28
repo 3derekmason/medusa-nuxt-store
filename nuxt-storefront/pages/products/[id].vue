@@ -70,6 +70,8 @@
           </caption>
           <button @click="quantity = quantity + 1">+</button>
         </span>
+        <label for="pickup">Check box for in-store pickup:</label>
+        <input type="checkbox" name="pickup" @change="pickup = !pickup" />
         <button class="toCart" @click="addToCart()">Add to cart</button>
       </div>
       <div class="details">
@@ -118,6 +120,7 @@ let imageToShow = ref(product?.images[0].id);
 let quantity = ref(1);
 let selected = ref();
 let variantId = ref();
+let pickup = ref(false);
 
 const getOptions = () => {
   if (product?.options) {
@@ -150,6 +153,9 @@ const addToCart = () => {
       .create(cartId, {
         variant_id: variantId,
         quantity: Number(quantity) || 1,
+        metadata: {
+          in_store_pickup: pickup.value,
+        },
       })
       .then(({ cart }) => {
         main.setCart(cart);

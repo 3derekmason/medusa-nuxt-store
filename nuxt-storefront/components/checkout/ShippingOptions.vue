@@ -1,9 +1,19 @@
 <template>
   <div class="shippingOptions">
     <h2>Shipping Options</h2>
-    <div class="cartItem" v-for="item in main.cart.items">
-      <img :src="item.thumbnail" alt="" width="80" />
-      <p>{{ item.title }}</p>
+    <div>
+      <div class="cartItem" v-for="item in main.cart.items">
+        <div class="inStore" v-if="item.metadata.in_store_pickup">
+          <h4>To pickup in store:</h4>
+          <img :src="item.thumbnail" alt="" width="80" />
+          <p>{{ item.title }}</p>
+        </div>
+        <div class="toShip" v-else>
+          <h4>To be shipped:</h4>
+          <img :src="item.thumbnail" alt="" width="80" />
+          <p>{{ item.title }}</p>
+        </div>
+      </div>
     </div>
     <div class="optionList">
       <span v-for="option in availableOptions">
@@ -28,8 +38,8 @@ const availableOptions = await client.shippingOptions
   .listCartOptions(main.cart.id)
   .then(({ shipping_options }) => shipping_options);
 
-const addOption = (optionId: string) => {
-  client.carts
+const addOption = async (optionId: string) => {
+  await client.carts
     .addShippingMethod(main.cart.id, {
       option_id: optionId,
     })
