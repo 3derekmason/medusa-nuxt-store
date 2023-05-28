@@ -8,19 +8,11 @@
 import { useMainStore } from "./store/main";
 const client = useMedusaClient();
 const main = useMainStore();
-onMounted(() => {
+onMounted(async () => {
   client.carts.create().then(({ cart }) => {
     localStorage.setItem("cart_id", cart.id);
     main.setCart(cart);
   });
-  // client.auth
-  //   .authenticate({
-  //     email: "derek@powerfulweb.com",
-  //     password: "Medusa123",
-  //   })
-  //   .then(({ customer }) => {
-  //     main.setCustomer(customer.id);
-  //   });
 });
 </script>
 
