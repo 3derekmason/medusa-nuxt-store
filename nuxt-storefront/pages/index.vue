@@ -1,6 +1,11 @@
 <template>
   <div class="homePage">
     <HeroSection />
+    <h2>
+      Welcome back{{
+        main.customer.first_name ? `, ${main.customer.first_name}!` : "!"
+      }}
+    </h2>
     <div>
       <h4>Featured Products</h4>
     </div>
@@ -13,13 +18,18 @@
 </template>
 
 <script setup lang="ts">
+import { useMainStore } from "~/store/main";
 const client = useMedusaClient();
+const main = useMainStore();
 const { products } = await client.products.list();
 </script>
 
 <style>
 .homePage {
   padding: 0.5em;
+}
+.homePage h2 {
+  text-align: center;
 }
 .productRow {
   width: 100%;
