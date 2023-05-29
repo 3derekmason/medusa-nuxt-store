@@ -3,14 +3,14 @@ import { defineStore } from "pinia";
 export const useMainStore = defineStore("main", {
   state: () => ({
     cart: {},
-    customer: "",
+    customer: {},
   }),
   actions: {
     setCart(newCart) {
       this.cart = newCart;
     },
-    setCustomer(id) {
-      this.customer = id;
+    setCustomer(customer) {
+      this.customer = customer;
     },
   },
 });

@@ -12,7 +12,13 @@
         <h1>Medusa/Nuxt Store</h1>
       </div>
       <span>
-        <NuxtLink to="/account">Account</NuxtLink>
+        <NuxtLink v-if="$route.path !== '/account'" to="/account">{{
+          !main.customer.email
+            ? "Log in/Sign up"
+            : main.customer.first_name
+            ? main.customer.first_name
+            : "Account"
+        }}</NuxtLink>
         <NuxtLink v-if="$route.path !== '/cart'" to="/cart" class="cartNav"
           >Cart <span>{{ main.cart?.items?.length || 0 }}</span></NuxtLink
         >
