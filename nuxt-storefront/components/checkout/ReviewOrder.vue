@@ -1,5 +1,10 @@
 <template>
   <h1>Review/Place Order</h1>
+  <div class="preview">
+    <span class="orderItem" v-for="item in main.cart.items">
+      <img :src="item.thumbnail" :alt="item.title" width="120" />
+    </span>
+  </div>
   <p>Subtotal: {{ main.cart.subtotal / 100 }}</p>
   <p>Shipping: {{ main.cart.shipping_total / 100 }}</p>
   <hr />

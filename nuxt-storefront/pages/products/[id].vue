@@ -159,6 +159,7 @@ const addToCart = () => {
       })
       .then(({ cart }) => {
         main.setCart(cart);
+        selected.value = "";
       });
   }
 };
