@@ -17,7 +17,7 @@ const client = useMedusaClient();
 const main = useMainStore();
 await client.carts.createPaymentSessions(main.cart.id).then(({ cart }) => {
   main.setCart(cart);
-  console.log(cart.payment_sessions);
+  // console.log(cart.payment_sessions);
 });
 await client.auth
   .authenticate({

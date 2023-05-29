@@ -78,10 +78,9 @@ watchEffect(() => {
         shipping_address: userAddress.value,
       })
       .then(({ cart }) => {
-        console.log(cart.shipping_address);
+        main.setCart(cart);
       });
   }
-  console.log(main.cart.shipping_address);
 });
 </script>
 

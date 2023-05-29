@@ -46,8 +46,8 @@ const availableOptions = await client.shippingOptions
   .listCartOptions(main.cart.id)
   .then(({ shipping_options }) => shipping_options);
 
-const addOption = (optionId: string) => {
-  client.carts
+const addOption = async (optionId: string) => {
+  await client.carts
     .addShippingMethod(main.cart.id, {
       option_id: optionId,
     })
