@@ -12,7 +12,7 @@
     <ul class="cartItems">
       <li v-for="item in main.cart?.items">
         <CartRemoveItem :lineId="item.id" />
-        <img alt="" :src="item.thumbnail" width="120" />
+        <img :alt="item.title" :src="item.thumbnail" width="120" />
         <span class="aboutItem">
           <h4>{{ item.title }}</h4>
           <p>{{ item.description }}</p>
@@ -39,15 +39,8 @@
         </caption>
         <p>{{ main.cart?.item_tax_total / 100 || "0.00" }}</p>
       </span>
-      <span>
-        <caption>
-          Shipping:
-        </caption>
-        <p>{{ main.cart?.shipping_total / 100 || "0.00" }}</p>
-      </span>
     </div>
     <div class="total">
-      <p>Total: {{ main.cart.total / 100 || 0 }}</p>
       <NuxtLink to="/checkout">Proceed to checkout</NuxtLink>
     </div>
   </div>

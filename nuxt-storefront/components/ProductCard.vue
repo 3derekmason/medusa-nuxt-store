@@ -3,7 +3,12 @@
     <NuxtLink :to="`/products/${item.id}`">
       <div>
         <div class="thumbnail">
-          <img alt="" :src="item.thumbnail" width="300" height="300" />
+          <img
+            :alt="item.title"
+            :src="item.thumbnail"
+            width="300"
+            height="300"
+          />
         </div>
         <div class="productLabel">
           <h3>
@@ -36,13 +41,15 @@ const props = defineProps({
 
 const getLowestPrice = (item: any) => {
   const lowestPrice = item.variants.reduce(
-    (acc: any, curr: any) => {
-      return curr.prices.reduce((lowest: any, current: any) => {
-        if (lowest.amount > current.amount) {
-          return current;
+    (acc: any, curr: { prices: any[] }) => {
+      return curr.prices.reduce(
+        (lowest: { amount: number }, current: { amount: number }) => {
+          if (lowest.amount > current.amount) {
+            return current;
+          }
+          return lowest;
         }
-        return lowest;
-      });
+      );
     },
     { amount: 0 }
   );
@@ -88,5 +95,12 @@ const getLowestPrice = (item: any) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.productLabel h3 {
+  font-size: 1em;
+}
+.productLabel p {
+  font-size: 14px;
 }
 </style>

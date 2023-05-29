@@ -1,5 +1,5 @@
 <template>
-  <form action="" class="shippingAddress">
+  <form class="shippingAddress">
     <h2>Shipping Address:</h2>
     <div class="row">
       <label for="company">Company Name:</label
@@ -33,8 +33,8 @@
       <label for="postalCode">Postal Code:</label
       ><input type="text" name="postalCode" v-model="userAddress.postal_code" />
     </div>
-    <div v-if="formComplete">Done</div>
-    <div v-else>Not done</div>
+    <div v-if="formComplete" class="done"></div>
+    <div v-else class="notDone"></div>
   </form>
 </template>
 
@@ -84,3 +84,37 @@ watchEffect(() => {
   console.log(main.cart.shipping_address);
 });
 </script>
+
+<style>
+.shippingAddress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.row {
+  display: flex;
+  align-items: center;
+}
+.row label {
+  width: 10em;
+}
+.row input {
+  width: 12em;
+}
+
+.done,
+.notDone {
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+}
+
+.done {
+  border: 1px solid transparent;
+  background: #64dd17;
+}
+
+.notDone {
+  border: 1px solid #d50000;
+}
+</style>

@@ -7,7 +7,7 @@
           :key="image.id"
           width="150"
           height="150"
-          alt=""
+          :alt="product.title"
           :src="image.url"
           @click="imageToShow = image.id"
           :class="imageToShow === image.id ? 'shown' : ''"
@@ -17,7 +17,7 @@
       <div class="shownImage">
         <div v-for="image in product?.images" :key="image.id">
           <div v-if="image.id === imageToShow">
-            <img alt="" :src="image.url" width="400" />
+            <img :alt="product.title" :src="image.url" width="400" />
           </div>
         </div>
       </div>
@@ -29,9 +29,8 @@
       </h1>
       <p v-if="product?.variants">
         {{ product.variants[0].prices[0].amount / 100 }}
-        {{ product.variants[0].prices[0].currency_code }}
+        {{ product.variants[0].prices[0].currency_code.toUpperCase() }}
       </p>
-      <p v-else>10 USD</p>
       <p>
         {{ product?.description }}
       </p>
@@ -71,7 +70,12 @@
           <button @click="quantity = quantity + 1">+</button>
         </span>
         <label for="pickup">Check box for in-store pickup:</label>
-        <input type="checkbox" name="pickup" @change="pickup = !pickup" />
+        <input
+          type="checkbox"
+          name="pickup"
+          @change="pickup = !pickup"
+          :checked="pickup"
+        />
         <button class="toCart" @click="addToCart()">Add to cart</button>
       </div>
       <div class="details">
@@ -89,15 +93,15 @@
               <ul>
                 <li>
                   Weight:
-                  {{ product.weight ? `${product.weight} g` : "Unknown" }}
+                  {{ product.weight ? `${product.weight} g` : "--" }}
                 </li>
                 <li>
                   Width:
-                  {{ product.width ? `${product.width} cm` : "Unknown" }}
+                  {{ product.width ? `${product.width} cm` : "--" }}
                 </li>
                 <li>
                   Height:
-                  {{ product.height ? `${product.height} cm` : "Unknown" }}
+                  {{ product.height ? `${product.height} cm` : "--" }}
                 </li>
               </ul>
             </div>
@@ -110,10 +114,10 @@
 
 <script setup lang="ts">
 import { useMainStore } from "../../store/main";
-const route = useRoute();
-const productId = route.params.id;
 const client = useMedusaClient();
 const main = useMainStore();
+const route = useRoute();
+const productId = route.params.id.toString();
 const { product } = await client.products.retrieve(productId);
 let showDetails = ref(false);
 let imageToShow = ref(product?.images[0].id);
@@ -160,6 +164,7 @@ const addToCart = () => {
       .then(({ cart }) => {
         main.setCart(cart);
         selected.value = "";
+        pickup.value = false;
       });
   }
 };
@@ -238,6 +243,7 @@ const addToCart = () => {
 
 .cartActions {
   display: flex;
+  align-items: center;
   gap: 0.5em;
   height: 40px;
 }
@@ -277,6 +283,7 @@ const addToCart = () => {
   border-radius: 4px;
   background: var(--primary-main);
   color: #fefefe;
+  height: 40px;
   width: 100px;
   cursor: pointer;
   transition: 0.2s;
