@@ -20,7 +20,10 @@
             : "Account"
         }}</NuxtLink>
         <NuxtLink v-if="$route.path !== '/cart'" to="/cart" class="cartNav"
-          >Cart <span>{{ main.cart?.items?.length || 0 }}</span></NuxtLink
+          >Cart
+          <span>{{
+            main.cartPickup.items?.length + main.cartShipping.items?.length || 0
+          }}</span></NuxtLink
         >
       </span>
     </nav>

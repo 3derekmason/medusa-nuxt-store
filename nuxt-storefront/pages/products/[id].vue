@@ -151,22 +151,33 @@ const setVariant = (value: string) => {
 };
 
 const addToCart = () => {
-  const cartId = main.cart.id;
-  if (cartId && variantId) {
+  const pickupCartId = main.cartPickup.id;
+  const shippingCartId = main.cartShipping.id;
+  if (!variantId) {
+    return new Error("No variant selected.");
+  }
+  if (pickup.value) {
     client.carts.lineItems
-      .create(cartId, {
+      .create(pickupCartId, {
         variant_id: variantId,
         quantity: Number(quantity) || 1,
-        metadata: {
-          in_store_pickup: pickup.value,
-        },
       })
       .then(({ cart }) => {
-        main.setCart(cart);
-        selected.value = "";
-        pickup.value = false;
+        main.setPickupCart(cart);
       });
   }
+  if (!pickup.value) {
+    client.carts.lineItems
+      .create(shippingCartId, {
+        variant_id: variantId,
+        quantity: Number(quantity) || 1,
+      })
+      .then(({ cart }) => {
+        main.setShipCart(cart);
+      });
+  }
+  selected.value = "";
+  pickup.value = false;
 };
 </script>
 

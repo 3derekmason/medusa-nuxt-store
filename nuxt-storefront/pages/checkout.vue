@@ -41,7 +41,8 @@ const placeOrder = () => {
   // client.carts.complete(main.cart.id).then(({ type, data }) => {
   //   console.log(type, data);
   // });
-  console.log(main.cart);
+  console.log("shipping:", main.cartShipping);
+  console.log("pickup:", main.cartPickup);
 };
 </script>
 

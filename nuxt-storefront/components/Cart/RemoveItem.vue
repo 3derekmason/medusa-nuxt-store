@@ -1,5 +1,5 @@
 <template>
-  <button @click="removeItem()" class="remove">X</button>
+  <button class="remove">X</button>
 </template>
 
 <script setup lang="ts">
@@ -9,11 +9,11 @@ const client = useMedusaClient();
 const props = defineProps<{
   lineId: string;
 }>();
-const removeItem = () => {
-  client.carts.lineItems.delete(main.cart.id, props.lineId).then(({ cart }) => {
-    main.setCart(cart);
-  });
-};
+// const removeItem = () => {
+//   client.carts.lineItems.delete(main.cart.id, props.lineId).then(({ cart }) => {
+//     main.setCart(cart);
+//   });
+// };
 </script>
 
 <style>

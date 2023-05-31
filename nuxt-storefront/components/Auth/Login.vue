@@ -27,11 +27,11 @@ const login = (e: any) => {
       console.log(customer);
       main.setCustomer(customer);
       client.carts
-        .update(main.cart.id, {
+        .update(main.cartShipping.id, {
           customer_id: customer.id,
         })
         .then(({ cart }) => {
-          main.setCart(cart);
+          main.setShipCart(cart);
           router.push("/");
         });
     });

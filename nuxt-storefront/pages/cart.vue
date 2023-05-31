@@ -1,6 +1,6 @@
 <template>
   <div class="cartPage">
-    <h3 v-if="main.cart.items.length < 1">
+    <h3 v-if="allItems.length < 1">
       Nothing here! <NuxtLink to="/products">Browse products?</NuxtLink>
     </h3>
     <div class="store">
@@ -10,7 +10,7 @@
       </caption>
     </div>
     <ul class="cartItems">
-      <li v-for="item in main.cart?.items">
+      <li v-for="item in allItems">
         <CartRemoveItem :lineId="item.id" />
         <img :alt="item.title" :src="item.thumbnail" width="120" />
         <span class="aboutItem">
@@ -25,19 +25,19 @@
         <caption>
           Subtotal:
         </caption>
-        <p>{{ main.cart?.subtotal / 100 || "0.00" }}</p>
+        <p>{{ subtotal / 100 || "0.00" }}</p>
       </span>
       <span>
         <caption>
           Discount:
         </caption>
-        <p>{{ main.cart?.discount_total / 100 || "0.00" }}</p>
+        <p>{{ discountTotal / 100 || "0.00" }}</p>
       </span>
       <span>
         <caption>
           Tax:
         </caption>
-        <p>{{ main.cart?.item_tax_total / 100 || "0.00" }}</p>
+        <p>{{ taxTotal / 100 || "0.00" }}</p>
       </span>
     </div>
     <div class="total">
@@ -49,6 +49,12 @@
 <script setup lang="ts">
 import { useMainStore } from "../store/main";
 const main = useMainStore();
+const allItems = main.cartPickup.items.concat(main.cartShipping.items);
+const subtotal = main.cartPickup.subtotal + main.cartShipping.subtotal;
+const discountTotal =
+  main.cartPickup.discount_total + main.cartShipping.discount_total;
+const taxTotal =
+  main.cartPickup.item_tax_total + main.cartShipping.item_tax_total;
 </script>
 
 <style>

@@ -74,11 +74,11 @@ watchEffect(() => {
 watchEffect(() => {
   if (formComplete.value) {
     client.carts
-      .update(main.cart.id, {
+      .update(main.cartShipping.id, {
         shipping_address: userAddress.value,
       })
       .then(({ cart }) => {
-        main.setCart(cart);
+        main.setShipCart(cart);
       });
   }
 });

@@ -9,9 +9,16 @@ import { useMainStore } from "./store/main";
 const client = useMedusaClient();
 const main = useMainStore();
 onMounted(async () => {
+  // init cart for pickup items
   client.carts.create().then(({ cart }) => {
-    localStorage.setItem("cart_id", cart.id);
-    main.setCart(cart);
+    // localStorage.setItem("cart_id", cart.id);
+    main.setPickupCart(cart);
+  });
+
+  // init cart for shipped items
+  client.carts.create().then(({ cart }) => {
+    // localStorage.setItem("cart_id", cart.id);
+    main.setShipCart(cart);
   });
 });
 </script>

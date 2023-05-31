@@ -2,12 +2,16 @@ import { defineStore } from "pinia";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
-    cart: {},
+    cartPickup: {},
+    cartShipping: {},
     customer: {},
   }),
   actions: {
-    setCart(newCart) {
-      this.cart = newCart;
+    setPickupCart(newCart) {
+      this.cartPickup = newCart;
+    },
+    setShipCart(newCart) {
+      this.cartShipping = newCart;
     },
     setCustomer(customer) {
       this.customer = customer;
