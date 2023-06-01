@@ -15,10 +15,25 @@
 import { useMainStore } from "~/store/main";
 const client = useMedusaClient();
 const main = useMainStore();
-// await client.carts.createPaymentSessions(main.cart.id).then(({ cart }) => {
-//   main.setCart(cart);
-//   // console.log(cart.payment_sessions);
-// });
+await client.carts
+  .createPaymentSessions(main.cartShipping.id)
+  .then(({ cart }) => {
+    main.setShipCart(cart);
+  });
+await client.carts
+  .updatePaymentSession(
+    main.cartShipping.id,
+    main.cartShipping.payment_sessions[0].provider_id,
+    {
+      data: {
+        test: true,
+      },
+    }
+  )
+  .then(({ cart }) => {
+    main.setShipCart(cart);
+    console.log(cart.payment_session.data);
+  });
 const allItems = main.cartPickup.items.concat(main.cartShipping.items);
 const subtotal = main.cartPickup.subtotal + main.cartShipping.subtotal;
 const total = main.cartPickup.total + main.cartShipping.total;
