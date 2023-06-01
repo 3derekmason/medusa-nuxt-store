@@ -49,12 +49,21 @@
 <script setup lang="ts">
 import { useMainStore } from "../store/main";
 const main = useMainStore();
-const allItems = main.cartPickup.items.concat(main.cartShipping.items);
+const allItems = ref(main.cartPickup.items.concat(main.cartShipping.items));
 const subtotal = main.cartPickup.subtotal + main.cartShipping.subtotal;
 const discountTotal =
   main.cartPickup.discount_total + main.cartShipping.discount_total;
 const taxTotal =
   main.cartPickup.item_tax_total + main.cartShipping.item_tax_total;
+
+watchEffect(() => {
+  if (
+    main.cartPickup.items.length + main.cartShipping.items.length !==
+    allItems.length
+  ) {
+    allItems.value = main.cartPickup.items.concat(main.cartShipping.items);
+  }
+});
 </script>
 
 <style>
