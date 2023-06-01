@@ -38,11 +38,15 @@ const client = useMedusaClient();
 const main = useMainStore();
 const currentStep = ref(1);
 const placeOrder = () => {
-  // client.carts.complete(main.cartShipping.id).then(({ type, data }) => {
+  client.carts.complete(main.cartShipping.id).then(({ type, data }) => {
+    console.log(type, data);
+  });
+
+  // client.carts.complete(main.cartPickup.id).then(({ type, data }) => {
   //   console.log(type, data);
   // });
-  console.log("shipping:", main.cartShipping);
-  console.log("pickup:", main.cartPickup);
+  // console.log("shipping:", main.cartShipping);
+  // console.log("pickup:", main.cartPickup);
 };
 </script>
 
